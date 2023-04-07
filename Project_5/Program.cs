@@ -13,20 +13,18 @@ builder.Services.AddSwaggerGen();
 
 // My DI container
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IMemoryService, CacheService>();
 
 if (flagCache)
 {
-    builder.Services.AddDistributedMemoryCache();
     builder.Services.AddStackExchangeRedisCache(options => {
         options.Configuration = "localhost";
         options.InstanceName = "local";
-        });
-    builder.Services.AddTransient<IMemoryService, RedisService>();
+    });
 }
 else
 {
-    builder.Services.AddMemoryCache();
-    builder.Services.AddTransient<IMemoryService, MemoryCacheService>();
+    builder.Services.AddDistributedMemoryCache();
 }
 
 var app = builder.Build();

@@ -8,7 +8,7 @@ public class UserService: IUserService
 {
     #region Поля
 
-    private readonly string jsonFileUsers = "CollectionUsers.json"; 
+    private readonly string _jsonFileUsers = "CollectionUsers.json"; 
 
     #endregion
 
@@ -20,7 +20,7 @@ public class UserService: IUserService
     /// <returns>Коллекция пользователей</returns>
     public async Task<IEnumerable<User>> DeserializeJsonFileAsync()
     {
-        var usersString = await File.ReadAllTextAsync(jsonFileUsers);
+        var usersString = await File.ReadAllTextAsync(_jsonFileUsers);
         var collectionUsers = JsonConvert.DeserializeObject<List<User>>(usersString);
         
         return collectionUsers;
