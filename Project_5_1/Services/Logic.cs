@@ -20,33 +20,35 @@ public class Logic
 
     #endregion
 
-    #region Методы
+    #region Метод
 
     /// <summary>
     /// Метод запуска логики программы
     /// </summary>
     public void Start()
     {
-        Console.WriteLine("Нужно выбрать, кем быть: 1 - слушатель, 2 - отправитель.");
-
+        string message = String.Empty;
         try
         {
-            var intUser = Convert.ToInt32(Console.ReadLine());
-            if (intUser == 1)
+            while (true)
             {
-                Console.WriteLine("Вы вошли как слушатель. Ждем сообщения...");
-                Subscriber();
-            }
-            if (intUser == 2)
-            {
-                Console.WriteLine("Вы вошли как отправитель. " +
-                                  "Можете вводить сообщения и отправлять. " +
-                                  "Для выхода введите: 0");
-                Publisher();
+                message = Console.ReadLine();
+                if (String.IsNullOrEmpty(message)) 
+                {
+                    Console.WriteLine("Вы вышли из программы");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"Сообщение {message} отправлено");
+                    _subscriber.Publish("channel", message);
+                }
+                    
             }
         }
         catch (Exception e)
         {
+            Console.WriteLine($"Сообщение {message} не доставлено");
             Console.WriteLine(e);
         }
     }
@@ -58,33 +60,10 @@ public class Logic
     {
         _connection = ConnectionMultiplexer.Connect("localhost");
         _subscriber = _connection.GetSubscriber();
-    }
-    
-    /// <summary>
-    /// Метод слушателя
-    /// </summary>
-    private void Subscriber()
-    {
+        
         _subscriber.Subscribe("channel", (channel, message) => {
-            Console.WriteLine((string)message);
+            Console.WriteLine($"Сообщение получено: {(string)message}");
         });
-        Console.ReadLine();
     }
-    
-    /// <summary>
-    /// Метод отправителя
-    /// </summary>
-    private void Publisher()
-    {
-        while (true)
-        {
-            string message = Console.ReadLine();
-            if (message == "0")
-                break;
-            else
-                _subscriber.Publish("channel", message);
-        }
-    }
-
     #endregion
 }
