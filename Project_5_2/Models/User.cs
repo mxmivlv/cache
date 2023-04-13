@@ -1,8 +1,6 @@
-﻿using Project_5.Interfaces.Models;
+﻿namespace Project_5_2.Models;
 
-namespace Project_5.Models;
-
-public class User: IUser
+public class User
 {
     #region Свойства
     
