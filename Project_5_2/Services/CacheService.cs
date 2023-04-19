@@ -7,7 +7,7 @@ using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
 
-namespace Project_5.Services;
+namespace Project_5_2.Services;
 
 public class CacheService: IMemoryService
 {

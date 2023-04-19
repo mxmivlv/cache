@@ -1,6 +1,5 @@
 using Project_5_2.Interfaces.Services;
 using Project_5_2.Services;
-using Project_5.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
