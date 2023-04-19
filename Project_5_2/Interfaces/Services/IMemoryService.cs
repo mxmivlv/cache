@@ -1,6 +1,4 @@
-﻿using Project_5_2.Models;
-
-namespace Project_5_2.Interfaces.Services;
+﻿namespace Project_5_2.Interfaces.Services;
 
 public interface IMemoryService
 {
